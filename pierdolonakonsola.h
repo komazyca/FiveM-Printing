@@ -2,22 +2,21 @@
 #include "windows.h"
 #include <string>
 
-// Aktualny Offset [ 0x321D0 ] Conhost-V2.dll ConHost::Print
+// Aktualny Offset [ 0x21760 ] Conhost-V2.dll ConHost::Print
 
 namespace FiveM
 {
 
 
-
-void pierdolenie()
+void printujemy(std::string rsnm, std::string msg)
 {
-    using potrzebnechuje = void(*)(std::string const&, std::string const&);
-    auto printjanapawla = (potrzebnechuje)((DWORD64)GetModuleHandleA("conhost-v2.dll") + 0x321D0);
-    printjanapawla("chujozajebana", "komazyca#3584"); 
+    using chujoza = void(*)(std::string, std::string);
+    const uintptr_t bazachuja = (uintptr_t)GetModuleHandleA("conhost-v2.dll");
+    auto sendprintt = (chujoza)(bazachuja + 0x21760);
+    sendprintt(rsnm, msg + "\n");
 }
   
-  
-  
+    
 }
 
 
@@ -31,7 +30,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        FiveM::pierdolenie();
+        FiveM::printujemy("Suka","TESTWORK");
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
